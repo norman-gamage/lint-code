@@ -8,7 +8,7 @@
  *
  * Author               Norman Gamage <norman.gamage@gmail.com>
  * Version              Alpha
- * Last Update          2015 Jun 26
+ * Last Update          2015 Jun 27
  */
 
 class Solution {
@@ -18,38 +18,25 @@ class Solution {
    * @return: The first position of target. Position starts from 0.
    */
   public int binarySearch(int[] nums, int target) {
-    int length = nums.length;
-    int hi = length;
-    int lo = 0;
-    int mid = (hi + lo) / 2;
-    boolean found = false;
+    int high = nums.length - 1;
+    int low = 0;
+    int mid = -1;
 
-    while (mid > -1 && mid <= length && hi != lo) {
-      int m = nums[mid];
+    while (high >= low) {
+      mid = (high + low) / 2;
 
-      if (m == target) {
-        found = true;
-        break;
-      } else if (hi - 1 == lo) {
-        found = false;
-        break;
-      } else if (m > target) {
-        hi = mid;
-      } else if (m < target) {
-        lo = mid;
+      if (nums[mid] == target) {
+        while (mid > 0 && nums[mid - 1] == target) {
+          mid -= 1;
+        }
+        return mid;
+      } else if (nums[mid] < target) {
+        low = mid + 1;
+      } else {
+        high = mid - 1;
       }
-
-      mid = (hi + lo) / 2;
     }
 
-    if (found) {
-      while (mid > 0 && nums[mid - 1] == target) {
-        mid -= 1;
-      }
-      return mid;
-    } else {
-      return -1;
-    }
+    return -1;
   }
 }
-
