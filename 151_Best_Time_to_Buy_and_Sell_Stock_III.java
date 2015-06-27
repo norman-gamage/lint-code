@@ -82,6 +82,6 @@ class Solution {
       return MAX;
     }
   }
-};
+}
 
 
