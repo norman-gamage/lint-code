@@ -13,27 +13,40 @@
 
 public class Solution {
   /**
-   * @param n, m: positive integer (1 <= n ,m <= 100)
-   * @return an integer
+   * @param obstacleGrid: A list of lists of integers
+   * @return: An integer
    */
-  public int uniquePaths(int m, int n) {
-    if (m == 0 || n == 0) return 0;
-    if (m == 1 || n == 1) return 1;
+public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+    int m = obstacleGrid.length;
+    int n = obstacleGrid[0].length;
 
-    int[][] dp = new int[m][n];
+    if (m == 0 || n == 0) return 0;
+    if (obstacleGrid[m - 1][n - 1] == 1) return 0;
 
     for (int i = 0; i < m; i++) {
       for (int j = 0; j < n; j++) {
-        if (i == 0) {
-          dp[i][j] = 1;
-        } else if (j == 0) {
-          dp[i][j] = 1;
+        if (obstacleGrid[i][j] == 1) {
+          obstacleGrid[i][j] = -1;
         } else {
-          dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+          if (i == 0 && j == 0) {
+            obstacleGrid[i][j] = 1;
+          } else if (i == 0 && obstacleGrid[i][j] == 0) {
+            if (j > 0 && obstacleGrid[i][j - 1] > 0) {
+              obstacleGrid[i][j] = 1;
+            }
+          } else if (j == 0 && obstacleGrid[i][j] == 0) {
+            if (i > 0 && obstacleGrid[i - 1][j] > 0) {
+              obstacleGrid[i][j] = 1;
+            }
+          } else if (obstacleGrid[i][j] == 0) {
+            int a = (obstacleGrid[i - 1][j] > 0) ? obstacleGrid[i - 1][j] : 0;
+            int b = (obstacleGrid[i][j - 1] > 0) ? obstacleGrid[i][j - 1] : 0;
+            obstacleGrid[i][j] = a + b;
+          }
         }
       }
     }
 
-    return dp[m - 1][n - 1];
+    return obstacleGrid[m - 1][n - 1];
   }
 }
