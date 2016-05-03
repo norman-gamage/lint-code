@@ -1,7 +1,7 @@
 # lint-code
 Solutions for problems at http://www.lintcode.com/
 
-**Update** (2016 May 03):
+**Update** (2016 May 03):<br/>
 I no longer maintain this repository.
 Solutions may be outdated and/or no longer applicable.
 
